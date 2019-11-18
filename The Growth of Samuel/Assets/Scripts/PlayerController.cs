@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector3 jump;
     private float realSpeed;
+    public float jumpCount;
 
     // Start is called before the first frame update
     void Start()
@@ -35,10 +36,9 @@ public class PlayerController : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        // sets the movement in Vector3 for the ball movement
+        // sets the movement in Vector3 for movement
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        // adds movement to the Rigidbody so the ball can move
         rb.AddForce(movement * realSpeed);
         movementJump();
     }
@@ -46,15 +46,25 @@ public class PlayerController : MonoBehaviour
     {
         //sets the grounded bool to true
         grounded = true;
+        jumpCount = 0;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        //sets the grounded bool to true
+        grounded = false;
     }
 
     void movementJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount <=1)
         {
-            grounded = false;
-            rb.AddForce(jump, ForceMode.Impulse);
-            print("I'm jumping");
+            if (jumpCount == 0)
+            {
+                jumpCount = 1;
+                grounded = false;
+                rb.AddForce(jump, ForceMode.Impulse);
+            }
         }
     }
 }
