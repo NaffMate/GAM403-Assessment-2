@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LadderClimb : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public GameObject wall;
-  
+    public float speed = 0.2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,14 +14,13 @@ public class LadderClimb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Climb();
+        Movement();
     }
 
-    void Climb()
+    void Movement()
     {
-        if (Collision.wall.tag = "Ladder")
-        {
-            
-        }
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        transform.Translate(new Vector3(h, 0, v) * speed);
     }
 }

@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - JumpPad
+  - Obstacle
   - Ladder
   layers:
   - Default
