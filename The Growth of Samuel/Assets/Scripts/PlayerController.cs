@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
         
     //private variables
     private Rigidbody rb;
+    private CharacterController controller;
     private Vector3 jump;
     private float realSpeed;
     public float jumpCount;
@@ -26,7 +27,9 @@ public class PlayerController : MonoBehaviour
         sceneName = currentScene.name;
 
         rb = GetComponent<Rigidbody>();
-        
+
+        controller = GetComponent<CharacterController>();
+
         jump = new Vector3(0f, 10f, 0f);
 
         jumpPadForce = new Vector3(0f, 15f, 10f);
@@ -78,7 +81,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        print("Hitting");
+        if (!controller.isGrounded)
+        {
+            RaycastHit Hit;
+            Ray ray = new Ray(transform.position, -transform.up);
+            Debug.DrawRay(hit.point, hit.normal, Color.red, 10);
+            print("Hitting");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
