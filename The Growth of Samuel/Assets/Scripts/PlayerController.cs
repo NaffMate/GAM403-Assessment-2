@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
         //sets the grounded bool to true
         grounded = true;
         jumpCount = 0;
+        if (collision.gameObject.name == "Platform")
+        {
+            
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -118,5 +122,12 @@ public class PlayerController : MonoBehaviour
                 rb.transform.Translate(new Vector3(0, 1, 0) * Time.deltaTime);
             }
         }
+        else if (other.gameObject.CompareTag("Platform"))
+        {
+            other.transform.parent = transform;
+        }
+        gameObject.tag("")
     }
 }
+
+
